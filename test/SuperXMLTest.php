@@ -2,10 +2,11 @@
 
 namespace Lianhua\SuperXML\Test;
 
+use Lianhua\SuperXML\SuperXML;
 use PHPUnit\Framework\TestCase;
 
 /*
-EasyMailjet Library
+SuperXML Library
 Copyright (C) 2020  Lianhua Studio
 
 This program is free software: you can redistribute it and/or modify
@@ -26,6 +27,7 @@ class SuperXMLTest extends TestCase
 {
     public function testLoad()
     {
-        $this->assertTrue(true);
+        $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml");
+        $this->assertNotNull($xml);
     }
 }
