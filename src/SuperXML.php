@@ -41,25 +41,25 @@ class SuperXML
      * @brief The DOM Document
      * @var DOMDocument
      */
-    private $document;
+    protected $document;
 
     /**
      * @brief The path to file
      * @var string
      */
-    private $filepath;
+    protected $filepath;
 
     /**
      * @brief If the XML file need to be saved after each operation
      * @var bool
      */
-    private $autosave;
+    protected $autosave;
 
     /**
      * @brief The xpath component
      * @var DOMXPath
      */
-    private $xpath;
+    protected $xpath;
 
     /**
      * @brief Executes a query on the document or a node
@@ -81,6 +81,64 @@ class SuperXML
     public function xpathEval(string $expression, DOMNode $root = null)
     {
         return $this->xpath->evaluate($expression, $root);
+    }
+
+    /**
+     * @brief Replaces values inside the XML
+     * @param string $expression The XPath expression
+     * @param string $value The value to put
+     * @param DOMNode|null $root The root node. If null, the root of the XML document is taken
+     * @return void
+     */
+    public function replaceValue(string $expression, string $value, DOMNode $root = null): void
+    {
+        $nodes = $this->xpathQuery($expression, $root);
+
+        foreach ($nodes as $node) {
+            $node->nodeValue = $value;
+        }
+
+        $this->autosave();
+    }
+
+    /**
+     * @brief Returns the XML string
+     * @param DOMNode|null $root The root node. If null, the root of the XML document is taken
+     * @return string The XML string
+     */
+    public function getXML(DOMNode $root = null): string
+    {
+        return $this->document->saveXML($root);
+    }
+
+    /**
+     * @brief Saves the file if autosave is set to true
+     * @return void
+     */
+    protected function autosave(): void
+    {
+        if ($this->autosave) {
+            $this->save();
+        }
+    }
+
+    /**
+     * @brief Saves the file into the original file
+     * @return void
+     */
+    public function save(): void
+    {
+        $this->saveAs($this->filepath);
+    }
+
+    /**
+     * @brief Saves the XML into a file
+     * @param mixed $filepath The path to the file
+     * @return void
+     */
+    public function saveAs($filepath): void
+    {
+        file_put_contents($filepath, $this->document->saveXML());
     }
 
     /**

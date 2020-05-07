@@ -35,7 +35,7 @@ class SuperXMLTest extends TestCase
      */
     public function testLoad()
     {
-        $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml");
+        $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml", false);
         $this->assertNotNull($xml);
     }
 
@@ -46,7 +46,7 @@ class SuperXMLTest extends TestCase
      */
     public function testXpath()
     {
-        $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml");
+        $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml", false);
         $nodes = $xml->xpathQuery("/document/fruits/fruit");
         $evalNodes = $xml->xpathEval("/document/fruits/fruit");
 
@@ -63,5 +63,16 @@ class SuperXMLTest extends TestCase
 
         $evalCount = $xml->xpathEval("count(/document/fruits/fruit)");
         $this->assertEquals(3, $evalCount);
+    }
+
+    public function testReplace()
+    {
+        $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml", false);
+        $xml->replaceValue("/document/fruits/fruit", "Kiwi");
+
+        $this->assertXmlStringEqualsXmlFile(
+            __DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "02.xml",
+            $xml->getXML()
+        );
     }
 }
