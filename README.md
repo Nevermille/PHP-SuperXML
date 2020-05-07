@@ -126,3 +126,11 @@ The document becomes:
     </vegetables>
 </inventory>
 ```
+
+### Autosaving
+
+By default, the document is saved each time you edit it. To avoid this, set the second constructor parameter to false :
+
+```php
+$xml = new SuperXML("/path/to/xml/file", false);
+```
