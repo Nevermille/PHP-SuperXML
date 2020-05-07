@@ -113,4 +113,36 @@ class SuperXMLTest extends TestCase
             $xml->getXML()
         );
     }
+
+    /**
+     * @brief Tests the attribute set function
+     * @return void
+     * @throws Exception
+     */
+    public function testSetAttribute()
+    {
+        $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml", false);
+        $xml->setAttribute("/document/vegetables/vegetable[.='Potato']", "growIn", "soil");
+
+        $this->assertXmlStringEqualsXmlFile(
+            __DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "05.xml",
+            $xml->getXML()
+        );
+    }
+
+    /**
+     * @brief Tests the attribute set function
+     * @return void
+     * @throws Exception
+     */
+    public function testRemoveAttribute()
+    {
+        $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "06.xml", false);
+        $xml->removeAttribute("/document/fruits/fruit[.='Banana']", "growIn");
+
+        $this->assertXmlStringEqualsXmlFile(
+            __DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml",
+            $xml->getXML()
+        );
+    }
 }

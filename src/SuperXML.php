@@ -139,6 +139,43 @@ class SuperXML
     }
 
     /**
+     * @brief Sets an attribute for nodes
+     * @param string $expression The XPath expression
+     * @param string $name The name of the attribute
+     * @param string $value The value of the attribute
+     * @param DOMNode|null $root The root node. If null, the root of the XML document is taken
+     * @return void
+     */
+    public function setAttribute(string $expression, string $name, string $value, DOMNode $root = null): void
+    {
+        $nodes = $this->xpathQuery($expression, $root);
+
+        foreach ($nodes as $node) {
+            $node->setAttribute($name, $value);
+        }
+
+        $this->autosave();
+    }
+
+    /**
+     * @brief Removes an attribute on nodes
+     * @param string $expression The XPath expression
+     * @param string $name The name of the attribute
+     * @param DOMNode|null $root The root node. If null, the root of the XML document is taken
+     * @return void
+     */
+    public function removeAttribute(string $expression, string $name, DOMNode $root = null): void
+    {
+        $nodes = $this->xpathQuery($expression, $root);
+
+        foreach ($nodes as $node) {
+            $node->removeAttribute($name);
+        }
+
+        $this->autosave();
+    }
+
+    /**
      * @brief Returns the XML string
      * @param DOMNode|null $root The root node. If null, the root of the XML document is taken
      * @return string The XML string
