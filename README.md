@@ -127,6 +127,50 @@ The document becomes:
 </inventory>
 ```
 
+### Set an attribute
+
+You can set an attribute to nodes:
+
+```php
+$xml->setAttribute("/document/vegetables/vegetable[.='Carrot']", "growIn", "soil");
+```
+
+The document becomes:
+
+```xml
+<inventory>
+    <fruits>
+        <fruit>Apple</fruit>
+        <fruit>Banana</fruit>
+    </fruits>
+    <vegetables>
+        <vegetable growIn="soil">Carrot</vegetable>
+    </vegetables>
+</inventory>
+```
+
+### Remove an attribute
+
+You can remove an attribute, let's say you have the last example to start with:
+
+```php
+$xml->removeAttribute("/document/vegetables/vegetable[.='Carrot']", "growIn", "soil");
+```
+
+The document becomes:
+
+```xml
+<inventory>
+    <fruits>
+        <fruit>Apple</fruit>
+        <fruit>Banana</fruit>
+    </fruits>
+    <vegetables>
+        <vegetable>Carrot</vegetable>
+    </vegetables>
+</inventory>
+```
+
 ### Autosaving
 
 By default, the document is saved each time you edit it. To avoid this, set the second constructor parameter to false :
