@@ -3,6 +3,7 @@
 namespace Lianhua\SuperXML\Test;
 
 use Lianhua\SuperXML\SuperXML;
+use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 
@@ -65,6 +66,11 @@ class SuperXMLTest extends TestCase
         $this->assertEquals(3, $evalCount);
     }
 
+    /**
+     * @brief Tests the replace function
+     * @return void
+     * @throws Exception
+     */
     public function testReplace()
     {
         $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml", false);
@@ -72,6 +78,38 @@ class SuperXMLTest extends TestCase
 
         $this->assertXmlStringEqualsXmlFile(
             __DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "02.xml",
+            $xml->getXML()
+        );
+    }
+
+    /**
+     * @brief Tests the add child function
+     * @return void
+     * @throws Exception
+     */
+    public function testAddChild()
+    {
+        $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml", false);
+        $xml->addChild("/document/fruits", "fruit", "Kiwi");
+
+        $this->assertXmlStringEqualsXmlFile(
+            __DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "03.xml",
+            $xml->getXML()
+        );
+    }
+
+    /**
+     * @brief Tests the remove function
+     * @return void
+     * @throws Exception
+     */
+    public function testRemove()
+    {
+        $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml", false);
+        $xml->remove("/document/vegetables/vegetable");
+
+        $this->assertXmlStringEqualsXmlFile(
+            __DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "04.xml",
             $xml->getXML()
         );
     }

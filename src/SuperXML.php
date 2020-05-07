@@ -102,6 +102,43 @@ class SuperXML
     }
 
     /**
+     * @brief Adds a child to a node
+     * @param string $expression The XPath expression of the parent node
+     * @param string $name The name of the child
+     * @param string|null $value The value of the child
+     * @param DOMNode|null $root The root node. If null, the root of the XML document is taken
+     * @return void
+     */
+    public function addChild(string $expression, string $name, string $value = null, DOMNode $root = null): void
+    {
+        $nodes = $this->xpathQuery($expression, $root);
+
+        foreach ($nodes as $node) {
+            $newNode = $this->document->createElement($name, $value);
+            $node->appendChild($newNode);
+        }
+
+        $this->autosave();
+    }
+
+    /**
+     * @brief Removes nodes from the document
+     * @param string $expression The XPath expression
+     * @param DOMNode|null $root The root node. If null, the root of the XML document is taken
+     * @return void
+     */
+    public function remove(string $expression, DOMNode $root = null): void
+    {
+        $nodes = $this->xpathQuery($expression, $root);
+
+        foreach ($nodes as $node) {
+            $node->parentNode->removeChild($node);
+        }
+
+        $this->autosave();
+    }
+
+    /**
      * @brief Returns the XML string
      * @param DOMNode|null $root The root node. If null, the root of the XML document is taken
      * @return string The XML string
