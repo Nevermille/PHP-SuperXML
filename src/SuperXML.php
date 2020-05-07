@@ -3,6 +3,9 @@
 namespace Lianhua\SuperXML;
 
 use DOMDocument;
+use DOMNode;
+use DOMNodeList;
+use DOMXPath;
 
 /*
 SuperXML Library
@@ -47,6 +50,40 @@ class SuperXML
     private $filepath;
 
     /**
+     * @brief If the XML file need to be saved after each operation
+     * @var bool
+     */
+    private $autosave;
+
+    /**
+     * @brief The xpath component
+     * @var DOMXPath
+     */
+    private $xpath;
+
+    /**
+     * @brief Executes a query on the document or a node
+     * @param string $expression The XPath expression
+     * @param DOMNode|null $root The root node. If null, the root of the XML document is taken
+     * @return DOMNodeList|false A list of nodes
+     */
+    public function xpathQuery(string $expression, DOMNode $root = null)
+    {
+        return $this->xpath->query($expression, $root);
+    }
+
+    /**
+     * @brief Evaluates a path expression on the document or a node
+     * @param string $expression The XPath expression
+     * @param DOMNode|null $root The root node. If null, the root of the XML document is taken
+     * @return mixed A list of nodes or the result value
+     */
+    public function xpathEval(string $expression, DOMNode $root = null)
+    {
+        return $this->xpath->evaluate($expression, $root);
+    }
+
+    /**
      * @brief The constructor
      * @param string $file The file path to the XML file
      * @param bool $autosave If the file needs to be updated at each operation
@@ -62,5 +99,9 @@ class SuperXML
             $this->document = new DOMDocument();
             $this->document->load($file);
         }
+
+        $this->filepath = $file;
+        $this->autosave = $autosave;
+        $this->xpath = new DOMXPath($this->document);
     }
 }

@@ -3,7 +3,10 @@
 namespace Lianhua\SuperXML\Test;
 
 use Lianhua\SuperXML\SuperXML;
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
+
+use function PHPUnit\Framework\assertEquals;
 
 /*
 SuperXML Library
@@ -25,9 +28,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class SuperXMLTest extends TestCase
 {
+    /**
+     * @brief Tests the XML loading
+     * @return void
+     * @throws ExpectationFailedException
+     */
     public function testLoad()
     {
         $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml");
         $this->assertNotNull($xml);
+    }
+
+    /**
+     * @brief Tests the XPath reading functions
+     * @return void
+     * @throws ExpectationFailedException
+     */
+    public function testXpath()
+    {
+        $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml");
+        $nodes = $xml->xpathQuery("/document/fruits/fruit");
+        $evalNodes = $xml->xpathEval("/document/fruits/fruit");
+
+        $this->assertEquals(3, count($nodes));
+        $this->assertEquals(3, count($evalNodes));
+
+        foreach ($nodes as $node) {
+            $this->assertContains($node->nodeValue, ["Banana", "Apple", "Pear"]);
+        }
+
+        foreach ($evalNodes as $node) {
+            $this->assertContains($node->nodeValue, ["Banana", "Apple", "Pear"]);
+        }
+
+        $evalCount = $xml->xpathEval("count(/document/fruits/fruit)");
+        $this->assertEquals(3, $evalCount);
     }
 }
