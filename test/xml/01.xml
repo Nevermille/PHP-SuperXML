@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <fruits>
+        <fruit>Banana</fruit>
+        <fruit>Apple</fruit>
+        <fruit>Pear</fruit>
+    </fruits>
+    <vegetables>
+        <vegetable>Carrot</vegetable>
+        <vegetable>Cabbage</vegetable>
+        <vegetable>Potato</vegetable>
+    </vegetables>
+</document>

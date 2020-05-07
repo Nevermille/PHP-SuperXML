@@ -5,6 +5,6 @@
 		}
 	],
 	"settings": {
-		"phpSniffer.standard": "psr2"
+		"phpSniffer.standard": "psr12"
 	}
 }
