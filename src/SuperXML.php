@@ -95,7 +95,7 @@ class SuperXML
         $nodes = $this->xpathQuery($expression, $root);
 
         foreach ($nodes as $node) {
-            $node->nodeValue = $value;
+            $node->nodeValue = htmlspecialchars($value);
         }
 
         $this->autosave();
@@ -114,7 +114,7 @@ class SuperXML
         $nodes = $this->xpathQuery($expression, $root);
 
         foreach ($nodes as $node) {
-            $newNode = $this->document->createElement($name, $value);
+            $newNode = $this->document->createElement($name, htmlspecialchars($value));
             $node->appendChild($newNode);
         }
 
@@ -151,7 +151,7 @@ class SuperXML
         $nodes = $this->xpathQuery($expression, $root);
 
         foreach ($nodes as $node) {
-            $node->setAttribute($name, $value);
+            $node->setAttribute($name, htmlspecialchars($value));
         }
 
         $this->autosave();
