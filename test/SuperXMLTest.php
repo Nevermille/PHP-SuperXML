@@ -145,4 +145,20 @@ class SuperXMLTest extends TestCase
             $xml->getXML()
         );
     }
+
+    /**
+     * @brief Tests with illegal chars
+     * @return void
+     * @throws Exception
+     */
+    public function testIllegalChars()
+    {
+        $xml = new SuperXML(__DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "01.xml", false);
+        $xml->replaceValue("/document/fruits/fruit", "K&\"'i<w>i");
+
+        $this->assertXmlStringEqualsXmlFile(
+            __DIR__ . DIRECTORY_SEPARATOR . "xml" . DIRECTORY_SEPARATOR . "07.xml",
+            $xml->getXML()
+        );
+    }
 }
