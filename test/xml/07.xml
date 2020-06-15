@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <fruits>
+        <fruit>K&amp;"'i&lt;w&gt;i</fruit>
+        <fruit>K&amp;"'i&lt;w&gt;i</fruit>
+        <fruit>K&amp;"'i&lt;w&gt;i</fruit>
+    </fruits>
+    <vegetables>
+        <vegetable>Carrot</vegetable>
+        <vegetable>Cabbage</vegetable>
+        <vegetable>Potato</vegetable>
+    </vegetables>
+</document>
