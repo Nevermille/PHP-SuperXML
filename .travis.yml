@@ -1,9 +1,12 @@
 dist: bionic
 language: php
 php:
-  - '7.3'
-  - '7.4'
+- '7.3'
+- '7.4'
 install:
-  - composer install
+- composer install
 script:
-  - ./vendor/bin/phpunit  --bootstrap ./vendor/autoload.php ./test/ --testdox
+- "./vendor/bin/phpunit  --bootstrap ./vendor/autoload.php ./test/ --testdox"
+notifications:
+  slack:
+    secure: ur2N5G/Z6pvRtGlo4gJGIjcOxlchu0MU/JVt9Ct8TXQRZZlbPcF8kitRWy1jLzfjkXaz4EVrq9oi7lRLMuYtQ8A1c0dJ/K1AiAx447ceqlJy27UXtlVrvaKu4131oMxbGJyitWwFoxTmvny0Fi5sY8mPmUjKQ7Hfk4gx1C7iE1aWvSgjh+LBXHC6Fe1Iekj9b3h9TXYaYJCSm2dWrhmTwR73qwsnGH7sl//g1r+MALwtEAEKBz7QDqyW3T0OgRPVhgXl2eYJcKcvUbmuivaWUWdmQkwu0B9XeHMbFA7b/Z8GQXKz982nkvEHN5794L87MZzhWrw6uj1Hoxmtkc5wRkdG/LeeyG1An8f4Qz7+fdGUK51dRer1nbXidUdEtjVcs43lmVTnkjJloSJAYN+vQrbgiVkhNcrZMU7omHkeXlOi1m+ISeEAVxr+vVXu8EEWBRW+lE7lc12asNpsvouANywj7JIlpzpa7+gVtEcGEs7DPJrl4+hgVdCcJE6Ssn2zihFF+BHZhxaj1MQu9TF9NvNhkVnUmof0G+PeeBAQc8/zs8gZnpG0oysk/qm4VLfdzZcZQOnvlbpx4sf41m/Mu8ha89cp7TWu/flpxnJCU4WFR8IjZdp42jugIW1BBQGoxSXNnph4occLILsNMkCJVkGrj8PjWDsm8X5EuCmoHQI=
